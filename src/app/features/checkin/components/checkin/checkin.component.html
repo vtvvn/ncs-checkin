@@ -1,0 +1,12 @@
+<form [formGroup]="form" class="form">
+    <div>
+        <label>{{config.tokenId.label}}</label>
+        <input type="text" #token formControlName="token" class="form-control"
+            (input)="token.value=$event.target.value.toUpperCase()" (keyup.enter)="onEnter($event.target.value)"
+            placeholder="Token Id">
+        <div *ngIf="msg" class="alert alert-danger">
+            {{msg}}
+        </div>
+    </div>
+</form>
+<app-checkin-response [checkIns]="checkIns" [config]="config"></app-checkin-response>

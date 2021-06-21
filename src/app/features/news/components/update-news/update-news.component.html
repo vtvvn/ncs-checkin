@@ -1,0 +1,9 @@
+<div class="container">
+    <label>Tiêu đề</label>
+    <input class="form-control" id="title" [(ngModel)]="news.title">
+    <angular-editor [(ngModel)]="news.quote" [config]="config1"></angular-editor>
+    <angular-editor [(ngModel)]="news.content" [config]="config2"></angular-editor>
+    <label>Nguồn tin</label>
+    <input class="form-control" id="source" [(ngModel)]="news.source">
+    <button (click)="save()">Save</button>
+</div>

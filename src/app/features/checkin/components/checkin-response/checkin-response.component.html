@@ -1,0 +1,23 @@
+<table class="table table-sm ml-3 mt-4">
+    <thead *ngIf="config" class="thead-light">
+        <tr>
+            <th>{{config.checkInTime.label}}</th>
+            <th>{{config.partyName.label}}</th>
+            <th>{{config.message.label}}</th>
+            <th>{{config.declarationId.label}}</th>
+            <th>{{config.status.label}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let checkIn of checkIns;">
+            <td><h3 class="display-4">{{checkIn.checkinTime | date:'h:mm':'+1400'}}</h3></td>
+            <td><h3 class="display-4">{{checkIn.partyName}}</h3></td>
+            <td><h3 class="display-4">{{checkIn.message}}</h3></td>
+            <td><h3 class="display-4"><a [routerLink]="['/health/result']"
+                    [queryParams]="{ id:  checkIn.healthDeclarationId }">{{checkIn.healthDeclarationId}}</a></h3></td>
+            <td *ngIf="checkIn.status==='PASS'" class="badge bg-success p-2"><h3 class="display-4">{{checkIn.status}}</h3></td>
+            <td *ngIf="checkIn.status==='FAIL'" class="badge bg-danger p-2"><h3 class="display-4">{{checkIn.status}}</h3></td>
+            <td *ngIf="checkIn.status==='WARN'" class="badge bg-warning p-2"><h3 class="display-4">{{checkIn.status}}</h3></td>
+        </tr>
+    </tbody>
+</table>

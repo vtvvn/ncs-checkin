@@ -1,0 +1,183 @@
+<form [formGroup]="form" class="form-horizontal">
+  <div>
+    <tabset>
+      <tab class="mt-2" heading="Dành cho nhân viên" id="EMP" (selectTab)="onSelect($event)">
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label col-sm-2" for="partyCode">{{config.partyCode.label}}</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="partyCode" class="form-control uppercase"
+                [ngClass]="{ 'is-invalid': f.partyCode.errors }" (blur)="getEmployee()">
+              <div *ngIf="f.partyCode.errors" class="invalid-feedback">
+                <div *ngIf="f.partyCode.errors.required">Vui lòng nhập mã NV</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label col-sm-2" for="partyName">{{config.partyName.label}}</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="partyName" class="form-control" readonly
+                [ngClass]="{ 'is-invalid': submitted && f.partyName.errors }">
+              <div *ngIf="submitted && f.partyName.errors" class="invalid-feedback">
+                <div *ngIf="f.partyName.errors.required">Không tìm thấy mã NV</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <tab class="mt-2" heading="Dành cho khách" id="PARTY" (selectTab)="onSelect($event)">
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label col-sm-2" for="partyName">{{config.partyName.label}}</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="partyName" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.partyName.errors }">
+              <div *ngIf="submitted && f.partyName.errors" class="invalid-feedback">
+                <div *ngIf="f.partyName.errors.required">Vui lòng nhập Họ và Tên</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label col-sm-2" for="mobile">{{config.mobile.label}}</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="mobile" class="form-control"
+                [ngClass]="{ 'is-invalid': f.mobile.errors }" placeholder="Ví dụ: 0991234567">
+              <div *ngIf="f.mobile.errors" class="invalid-feedback">
+                <div *ngIf="f.mobile.errors">Số điện thoại không hợp lệ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label col-sm-2" for="email">{{config.email.label}}</label>
+            <div class="col-sm-10">
+              <input type="email" formControlName="email" class="form-control" [email]="true"
+                [ngClass]="{ 'is-invalid': f.email.errors }" placeholder="itncs@noibaicatering.com.vn">
+              <div *ngIf="f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors">Email không hợp lệ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label col-sm-2" for="address">{{config.address.label}}</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="address" class="form-control" id="address">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label col-sm-2" for="birthYear">{{config.birthYear.label}}</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="birthYear" class="form-control"
+                [ngClass]="{ 'is-invalid': f.birthYear.errors }">
+              <div *ngIf="f.birthYear.errors" class="invalid-feedback">
+                <div *ngIf="f.birthYear.errors">Năm sinh không hợp lệ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <label class="control-label col-sm-2" for="sex">{{config.sex.label}}</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="sex" class="form-control" id="sex">
+            </div>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+      <label class="control-label col-sm-2" for="movingOn">{{config.movingOn.label}}</label>
+      <div class="col-sm-10">
+        <ng-select type="text" formControlName="movingOn" [items]="movingOn" bindLabel="description"
+          bindValue="id" id="movingOn" [ngClass]="{ 'is-invalid': submitted && f.movingOn.errors }">
+        </ng-select>
+        <div *ngIf="submitted && f.movingOn.errors" class="invalid-feedback">
+          <div *ngIf="f.movingOn.errors.required">Vui lòng chọn phương tiện di chuyển</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="{{config.info01.cssClass}}">{{config.info01.label}}</div>
+  <div class="radio p-2">
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info01" [value]="1">{{config.info01.answer1}}</label>
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info01" [value]="0">{{config.info01.answer2}}</label>
+    <div *ngIf="info01.value === 1">
+      <input type="text" formControlName="info11" class="form-control" placeholder="{{config.info11.placeholder}}">
+      <div *ngIf="!info11.value" class="alert alert-danger">
+        {{config.info11.err}}
+      </div>
+    </div>
+  </div>
+  <div class="{{config.info02.cssClass}}">{{config.info02.label}}</div>
+  <div class="p-2">
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info02" [value]="1">{{config.info02.answer1}}</label>
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info02" [value]="0">{{config.info02.answer2}}</label>
+    <div *ngIf="info02.value === 1">
+      <input type="text" formControlName="info12" class="form-control" placeholder="{{config.info12.placeholder}}">
+      <div *ngIf="!info12.value" class="alert alert-danger">
+        {{config.info12.err}}
+      </div>
+    </div>
+  </div>
+  <div class="{{config.info03.cssClass}}">{{config.info03.label}}</div>
+  <div class="p-2">
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info03" [value]="1">{{config.info03.answer1}}</label>
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info03" [value]="0">{{config.info03.answer2}}</label>
+    <div *ngIf="info03.value === 1">
+      <input type="text" formControlName="info13" class="form-control" placeholder="{{config.info13.placeholder}}">
+      <div *ngIf="!info13.value" class="alert alert-danger">
+        {{config.info13.err}}
+      </div>
+    </div>
+  </div>
+  <div class="{{config.info04.cssClass}}">{{config.info04.label}}</div>
+  <div class="p-2">
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info04" [value]="1">{{config.info04.answer1}}</label>
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info04" [value]="0">{{config.info04.answer2}}</label>
+    <div *ngIf="info04.value === 1">
+      <input type="text" formControlName="info14" class="form-control" placeholder="{{config.info14.placeholder}}">
+      <div *ngIf="!info14.value" class="alert alert-danger">
+        {{config.info14.err}}
+      </div>
+    </div>
+  </div>
+  <div class="{{config.info05.cssClass}}">{{config.info05.label}}</div>
+  <div class="p-2">
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info05" [value]="1">{{config.info05.answer1}}</label>
+    <label class="radio-inline p-2">
+      <input type="radio" formControlName="info05" [value]="0">{{config.info05.answer2}}</label>
+    <div *ngIf="info05.value === 1">
+      <input type="text" formControlName="info15" class="form-control" placeholder="{{config.info15.placeholder}}">
+      <div *ngIf="!info15.value" class="alert alert-danger">
+        {{config.info15.err}}
+      </div>
+    </div>
+  </div>
+  <div class="form-group text-center">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="button" class="{{config.summit.cssClass}}"
+        (click)="sendDeclaration()">{{config.summit.label}}</button>
+    </div>
+  </div>
+</form>

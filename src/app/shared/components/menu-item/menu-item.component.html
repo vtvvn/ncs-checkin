@@ -1,0 +1,12 @@
+<a (click)="onItemSelected(item)" class="menu-item">
+    <span class="menu-item-text">{{item.displayName}}</span>
+    <span fxflex class="twistie-separator"></span>
+    <span *ngIf="item.children && item.children.length">
+        <mat-icon>
+        </mat-icon>
+    </span>
+</a>
+<div *ngIf="expanded">
+    <app-menu-item class="menu-child" *ngFor="let child of item.children" [item]="child" [depth]="depth+1">
+    </app-menu-item>
+</div>

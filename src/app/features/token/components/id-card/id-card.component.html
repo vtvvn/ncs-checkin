@@ -1,0 +1,23 @@
+<div *ngIf="config">
+    <div *ngIf="idCard" class="border border-primary rounded text-center">
+        <div>
+            <h5>{{idCard.issueFor | uppercase}}</h5>
+        </div>
+         <div>
+            <!--<qrcode [qrdata]="idCard | json" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>-->
+            <ngx-barcode [bc-value]="idCard.issueForCode" [bc-display-value]="true"></ngx-barcode>
+        </div>
+        <div>
+            <span class="font-weight-bold">{{config.fromDate.label}}</span>
+            <label>{{idCard.fromDate | date:'dd/MM/y HH:mm': '+1400'}}</label>
+        </div>
+        <div>
+            <span class="font-weight-bold">{{config.toDate.label}}</span>
+            <label>{{idCard.toDate | date:'dd/MM/y HH:mm': '+1400'}}</label>
+        </div>
+        <div>
+            <span class="font-weight-bold">{{config.issuer.label}}</span>
+            <label>{{idCard.issuer}}</label>
+        </div>
+    </div>
+</div>

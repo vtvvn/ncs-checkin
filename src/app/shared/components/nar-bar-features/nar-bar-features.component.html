@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <!-- Brand -->
+  <a class="navbar-brand" [routerLink]="['/']">
+    <img src="../../../assets/ncslogo.jpg" style="width:40px;">
+    Anti COVID
+  </a>
+  <!-- Toggler/collapsibe Button -->
+  <button type="button" class="navbar-toggler collapsed" (click)="isCollapsed = !isCollapsed" aria-expanded="false">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" [collapse]=isCollapsed>
+    <ul class="navbar-nav mr-auto">
+      <span *ngFor="let menu of menus;">
+        <span *ngIf="menu.children && menu.children.length > 0">
+          <li class="nav-item dropdown" dropdown>
+            <a id="button-basic" dropdownToggle type="button" class="nav-link" aria-controls="dropdown-basic">
+              {{menu.displayName}} <span class="caret"></span>
+            </a>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+              <li class="nav-item" *ngFor="let m of menu.children;">
+                <a class="nav-link" (click)="isCollapsed = !isCollapsed" routerLink={{m.route}} [queryParams]="m.queryParams">{{m.displayName}}</a>
+              </li>
+            </ul>
+          </li>
+        </span>
+        <span *ngIf="!menu.children || menu.children.length === 0">
+          <li class="nav-item" *ngIf="hasPermision(menu.roles)">
+            <a class="nav-link" (click)="isCollapsed = !isCollapsed" routerLink={{menu.route}}
+              [queryParams]="menu.queryParams">{{menu.displayName}}</a>
+          </li>
+        </span>
+      </span>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li *ngIf="fullname" class="nav-item dropdown" dropdown>
+        <a class="nav-link" dropdownToggle>{{fullname}}</a>
+        <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li class="nav-item" role="menuitem">
+            <a class="nav-link" (click)="signOut()">Đăng xuất</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

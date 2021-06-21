@@ -1,0 +1,33 @@
+<div *ngIf="declaration">
+    <qrcode [qrdata]="decId" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    <div><span class="font-weight-bold">{{config.id.label}}</span>{{declaration.healthDeclarationId}}</div>
+    <div>
+        <span class="font-weight-bold">{{config.partyName.label}}</span>
+        <label id="hero-name">{{declaration.partyName}}</label>
+    </div>
+    <div>
+        <span class="font-weight-bold">{{config.decDatetime.label}}</span>
+        <label id="hero-name">{{declaration.decDatetime | date:'d/MM/y HH:mm':'+1400'}}</label>
+    </div>
+    <div *ngIf="declaration.info01==='1'">
+        <span class="font-weight-bold">{{config.info01.content}}</span>
+        <label id="hero-name">{{declaration.info11}}</label>
+    </div>
+    <div *ngIf="declaration.info02==='1'">
+        <span class="font-weight-bold">{{config.info02.content}}</span>
+        <label id="hero-name">{{declaration.info12}}</label>
+    </div>
+    <div *ngIf="declaration.info03==='1'">
+        <span class="font-weight-bold">{{config.info03.content}}</span>
+        <label id="hero-name">{{declaration.info13}}</label>
+    </div>
+    <div *ngIf="declaration.info04==='1'">
+        <span class="font-weight-bold">{{config.info04.content}}</span>
+        <label id="hero-name">{{declaration.info14}}</label>
+    </div>
+    <div *ngIf="declaration.info05==='1'">
+        <span class="font-weight-bold">{{config.info05.content}}</span>
+        <label id="hero-name">{{declaration.info15}}</label>
+    </div>
+    <button class="{{config.goBack.cssClass}}" (click)="goBack()">{{config.goBack.label}}</button>
+</div>

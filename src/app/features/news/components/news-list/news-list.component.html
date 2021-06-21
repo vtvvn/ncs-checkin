@@ -1,0 +1,5 @@
+<div class="container">
+    <div class="row" *ngFor="let n of newss$ | async">
+        <div [innerHTML]="n.content"></div>
+    </div>
+</div>
